@@ -3,12 +3,26 @@ using BusTicketDemoApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configurar puerto para Render (usa variable de entorno PORT o 10000 por defecto)
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
 // Add services to the container.
 builder.Services.AddControllers();
 
+// Configurar connection string para Render
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// Verificar si estamos usando una variable de entorno para la conexión
+if (string.IsNullOrEmpty(connectionString) || connectionString.Contains("${DATABASE_URL}"))
+{
+    // Usar variable de entorno para la base de datos en Render
+    connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") ?? 
+        "Server=localhost;Database=BusticketDb;User Id=sa;Password=YourStrongPassword;TrustServerCertificate=true;";
+}
+
 // Add Entity Framework
 builder.Services.AddDbContext<BusTicketDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(connectionString));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

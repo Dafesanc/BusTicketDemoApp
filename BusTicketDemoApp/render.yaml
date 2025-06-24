@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: bus-ticket-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: DATABASE_URL
+        # Aquí puedes usar una conexión a una base de datos externa, 
+        # o conectar con un servicio de base de datos de Render
+        # Ej: fromService.name y fromService.type para usar una BD en Render
+        sync: false
+    healthCheckPath: /api/BusBooking/GetAllBusLocations
+    autoDeploy: true
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1
