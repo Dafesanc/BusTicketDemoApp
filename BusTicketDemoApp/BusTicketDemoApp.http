@@ -1,0 +1,148 @@
+@BusTicketDemoApp_HostAddress = http://localhost:5287
+
+### Login
+POST {{BusTicketDemoApp_HostAddress}}/api/BusBooking/login
+Content-Type: application/json
+
+{
+  "userName": "admin",
+  "password": "admin123"
+}
+
+### Get All Users
+GET {{BusTicketDemoApp_HostAddress}}/api/BusBooking/GetAllUsers
+
+### Add New User
+POST {{BusTicketDemoApp_HostAddress}}/api/BusBooking/AddNewUser
+Content-Type: application/json
+
+{
+  "userId": 0,
+  "userName": "testuser",
+  "emailId": "test@email.com",
+  "fullName": "Test User",
+  "role": "Customer",
+  "createdDate": "2025-06-22T18:42:01.403Z",
+  "password": "test123",
+  "projectName": "BusTicketDemo",
+  "refreshToken": null,
+  "refreshTokenExpiryTime": null
+}
+
+### Update User
+POST {{BusTicketDemoApp_HostAddress}}/api/BusBooking/UpdateUser
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "userName": "customer1_updated",
+  "emailId": "customer1_updated@email.com",
+  "fullName": "John Doe Updated",
+  "role": "Customer",
+  "createdDate": "2025-06-22T18:42:24.593Z",
+  "password": "newpassword123",
+  "projectName": "BusTicketDemo",
+  "refreshToken": null,
+  "refreshTokenExpiryTime": null
+}
+
+### Get Bus Schedule By Id
+GET {{BusTicketDemoApp_HostAddress}}/api/BusBooking/GetBusScheduleById?id=1
+
+### Get Booked Seats
+GET {{BusTicketDemoApp_HostAddress}}/api/BusBooking/getBookedSeats?shceduleId=1
+
+### Create Bus Booking
+POST {{BusTicketDemoApp_HostAddress}}/api/BusBooking/PostBusBooking
+Content-Type: application/json
+
+{
+  "bookingId": 0,
+  "custId": 2,
+  "bookingDate": "2025-06-22T18:46:31.696Z",
+  "scheduleId": 1,
+  "BusBookingPassengers": [
+    {
+      "passengerId": 0,
+      "bookingId": 0,
+      "passengerName": "John Doe",
+      "age": 30,
+      "gender": "Male",
+      "seatNo": 1
+    },
+    {
+      "passengerId": 0,
+      "bookingId": 0,
+      "passengerName": "Jane Doe",
+      "age": 28,
+      "gender": "Female",
+      "seatNo": 2
+    }
+  ]
+}
+
+### Search Buses
+GET {{baseUrl}}/api/BusBooking/searchBus?fromLocation=1&toLocation=2&travelDate=2025-06-23T00:00:00Z
+Accept: application/json
+
+### Update Bus Location
+PUT {{baseUrl}}/api/BusBooking/PutBusLocation?id=1
+Content-Type: application/json
+
+{
+  "locationId": 1,
+  "locationName": "Updated Location Name",
+  "code": "ULN"
+}
+
+### Get All Bus Bookings for Vendor
+GET {{baseUrl}}/api/BusBooking/GetAllBusBookings?vendorId=1
+Accept: application/json
+
+### Add Bus Location (Helper endpoint for testing)
+POST {{baseUrl}}/api/BusBooking/AddBusLocation
+Content-Type: application/json
+
+{
+  "locationName": "New York",
+  "code": "NYC"
+}
+
+### Add Vendor (Helper endpoint for testing)
+POST {{baseUrl}}/api/BusBooking/AddVendor
+Content-Type: application/json
+
+{
+  "vendorName": "Express Bus Lines",
+  "email": "info@expressbus.com",
+  "phone": "+1-555-0123"
+}
+
+### Add Bus Schedule (Helper endpoint for testing)
+POST {{baseUrl}}/api/BusBooking/AddBusSchedule
+Content-Type: application/json
+
+{
+  "vendorId": 1,
+  "busName": "Express Bus 001",
+  "busVehicleNo": "EXP-001",
+  "fromLocation": 1,
+  "toLocation": 2,
+  "departureTime": "2025-06-23T08:00:00Z",
+  "arrivalTime": "2025-06-23T12:00:00Z",
+  "scheduleDate": "2025-06-23T00:00:00Z",
+  "price": 25.50,
+  "totalSeats": 40
+}
+
+### Get All Bus Locations
+GET {{baseUrl}}/api/BusBooking/GetAllBusLocations
+Accept: application/json
+
+### Get All Vendors
+GET {{baseUrl}}/api/BusBooking/GetAllVendors
+Accept: application/json
+
+### Get All Bus Schedules
+GET {{baseUrl}}/api/BusBooking/GetAllBusSchedules
+Accept: application/json
