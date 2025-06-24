@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+# BusTicketDemoApp
+BackEnd en .NET de busticket app
+=======
 # 🚌 BusTicketDemoApp - API REST para Gestión de Reservas de Autobuses
 
 <<<<<<< Updated upstream
