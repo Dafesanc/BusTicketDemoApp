@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-# BusTicketDemoApp
-BackEnd en .NET de busticket app
-=======
 # 🚌 BusTicketDemoApp - API REST para Gestión de Reservas de Autobuses
 
-<<<<<<< Updated upstream
-Una API REST completa desarrollada en **.NET 8.0** para gestionar reservas de autobuses con sistema de usuarios, proveedores, rutas y reservas.
-=======
 BackEnd en .NET 8.0 de BusTicket App - Una API REST completa para gestionar reservas de autobuses con sistema de usuarios, proveedores, rutas y reservas.
->>>>>>> Stashed changes
 
 ## 🏗️ Arquitectura
 
