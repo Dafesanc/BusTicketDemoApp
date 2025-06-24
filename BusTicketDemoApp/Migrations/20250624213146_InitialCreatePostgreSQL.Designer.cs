@@ -3,17 +3,17 @@ using System;
 using BusTicketDemoApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace BusTicketDemoApp.Migrations
 {
     [DbContext(typeof(BusTicketDbContext))]
-    [Migration("20250623033220_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250624213146_InitialCreatePostgreSQL")]
+    partial class InitialCreatePostgreSQL
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,26 +21,26 @@ namespace BusTicketDemoApp.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.0")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("BusTicketDemoApp.Models.BusBooking", b =>
                 {
                     b.Property<int>("BookingId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BookingId"));
 
                     b.Property<DateTime>("BookingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("CustId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("ScheduleId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("BookingId");
 
@@ -53,28 +53,28 @@ namespace BusTicketDemoApp.Migrations
                 {
                     b.Property<int>("PassengerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PassengerId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PassengerId"));
 
                     b.Property<int>("Age")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("BookingId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("character varying(10)");
 
                     b.Property<string>("PassengerName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int>("SeatNo")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("PassengerId");
 
@@ -88,19 +88,19 @@ namespace BusTicketDemoApp.Migrations
                 {
                     b.Property<int>("LocationId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LocationId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("LocationId"));
 
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("character varying(10)");
 
                     b.Property<string>("LocationName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("LocationId");
 
@@ -146,43 +146,43 @@ namespace BusTicketDemoApp.Migrations
                 {
                     b.Property<int>("ScheduleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScheduleId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ScheduleId"));
 
                     b.Property<DateTime>("ArrivalTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("BusName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("BusVehicleNo")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("DepartureTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("FromLocation")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<DateTime>("ScheduleDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ToLocation")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("TotalSeats")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("VendorId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("ScheduleId");
 
@@ -194,13 +194,13 @@ namespace BusTicketDemoApp.Migrations
                         new
                         {
                             ScheduleId = 1,
-                            ArrivalTime = new DateTime(2025, 6, 23, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            ArrivalTime = new DateTime(2025, 6, 23, 14, 0, 0, 0, DateTimeKind.Utc),
                             BusName = "Express CDMX-GDL",
                             BusVehicleNo = "ADN-001",
-                            DepartureTime = new DateTime(2025, 6, 23, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartureTime = new DateTime(2025, 6, 23, 8, 0, 0, 0, DateTimeKind.Utc),
                             FromLocation = 1,
                             Price = 450.00m,
-                            ScheduleDate = new DateTime(2025, 6, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ScheduleDate = new DateTime(2025, 6, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             ToLocation = 2,
                             TotalSeats = 42,
                             VendorId = 1
@@ -208,13 +208,13 @@ namespace BusTicketDemoApp.Migrations
                         new
                         {
                             ScheduleId = 2,
-                            ArrivalTime = new DateTime(2025, 6, 23, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            ArrivalTime = new DateTime(2025, 6, 23, 20, 0, 0, 0, DateTimeKind.Utc),
                             BusName = "Ejecutivo CDMX-MTY",
                             BusVehicleNo = "ADN-002",
-                            DepartureTime = new DateTime(2025, 6, 23, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartureTime = new DateTime(2025, 6, 23, 10, 0, 0, 0, DateTimeKind.Utc),
                             FromLocation = 1,
                             Price = 650.00m,
-                            ScheduleDate = new DateTime(2025, 6, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ScheduleDate = new DateTime(2025, 6, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             ToLocation = 3,
                             TotalSeats = 38,
                             VendorId = 1
@@ -222,13 +222,13 @@ namespace BusTicketDemoApp.Migrations
                         new
                         {
                             ScheduleId = 3,
-                            ArrivalTime = new DateTime(2025, 6, 24, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            ArrivalTime = new DateTime(2025, 6, 24, 16, 0, 0, 0, DateTimeKind.Utc),
                             BusName = "Primera Plus GDL-CUN",
                             BusVehicleNo = "PP-101",
-                            DepartureTime = new DateTime(2025, 6, 23, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartureTime = new DateTime(2025, 6, 23, 22, 0, 0, 0, DateTimeKind.Utc),
                             FromLocation = 2,
                             Price = 980.00m,
-                            ScheduleDate = new DateTime(2025, 6, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ScheduleDate = new DateTime(2025, 6, 23, 0, 0, 0, 0, DateTimeKind.Utc),
                             ToLocation = 5,
                             TotalSeats = 40,
                             VendorId = 2
@@ -239,48 +239,48 @@ namespace BusTicketDemoApp.Migrations
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("EmailId")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("ProjectName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("RefreshTokenExpiryTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("UserId");
 
@@ -296,7 +296,7 @@ namespace BusTicketDemoApp.Migrations
                         new
                         {
                             UserId = 1,
-                            CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             EmailId = "admin@busticket.com",
                             FullName = "Administrador del Sistema",
                             Password = "admin123",
@@ -307,7 +307,7 @@ namespace BusTicketDemoApp.Migrations
                         new
                         {
                             UserId = 2,
-                            CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             EmailId = "customer1@email.com",
                             FullName = "Juan Pérez",
                             Password = "customer123",
@@ -318,7 +318,7 @@ namespace BusTicketDemoApp.Migrations
                         new
                         {
                             UserId = 3,
-                            CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             EmailId = "vendor1@email.com",
                             FullName = "María González",
                             Password = "vendor123",
@@ -332,27 +332,27 @@ namespace BusTicketDemoApp.Migrations
                 {
                     b.Property<int>("VendorId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VendorId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("VendorId"));
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("VendorName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("VendorId");
 
@@ -362,7 +362,7 @@ namespace BusTicketDemoApp.Migrations
                         new
                         {
                             VendorId = 1,
-                            CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "info@autobusdelnorte.com",
                             Phone = "+52-55-1234-5678",
                             VendorName = "Autobuses del Norte"
@@ -370,7 +370,7 @@ namespace BusTicketDemoApp.Migrations
                         new
                         {
                             VendorId = 2,
-                            CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "contacto@primeraplus.com",
                             Phone = "+52-33-9876-5432",
                             VendorName = "Primera Plus"

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using BusTicketDemoApp.Models;
+using BusTicketDemoApp.Extensions;
 
 namespace BusTicketDemoApp.Data
 {
@@ -93,7 +94,7 @@ namespace BusTicketDemoApp.Data
                     VendorName = "Autobuses del Norte", 
                     Email = "info@autobusdelnorte.com", 
                     Phone = "+52-55-1234-5678",
-                    CreatedDate = new DateTime(2025, 1, 1)
+                    CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
                 new Vendor 
                 { 
@@ -101,7 +102,7 @@ namespace BusTicketDemoApp.Data
                     VendorName = "Primera Plus", 
                     Email = "contacto@primeraplus.com", 
                     Phone = "+52-33-9876-5432",
-                    CreatedDate = new DateTime(2025, 1, 1)
+                    CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }
             );
                 
@@ -114,7 +115,7 @@ namespace BusTicketDemoApp.Data
                     EmailId = "admin@busticket.com",
                     FullName = "Administrador del Sistema",
                     Role = "Admin",
-                    CreatedDate = new DateTime(2025, 1, 1),
+                    CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                     Password = "admin123", // En producción usar hash
                     ProjectName = "BusTicketDemo"
                 },
@@ -125,7 +126,7 @@ namespace BusTicketDemoApp.Data
                     EmailId = "customer1@email.com",
                     FullName = "Juan Pérez",
                     Role = "Customer",
-                    CreatedDate = new DateTime(2025, 1, 1),
+                    CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                     Password = "customer123", // En producción usar hash
                     ProjectName = "BusTicketDemo"
                 },
@@ -136,14 +137,14 @@ namespace BusTicketDemoApp.Data
                     EmailId = "vendor1@email.com",
                     FullName = "María González",
                     Role = "Vendor",
-                    CreatedDate = new DateTime(2025, 1, 1),
+                    CreatedDate = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                     Password = "vendor123", // En producción usar hash
                     ProjectName = "BusTicketDemo"
                 }
             );
             
             // Seed Bus Schedules
-            var baseDate = new DateTime(2025, 6, 23);
+            var baseDate = new DateTime(2025, 6, 23, 0, 0, 0, DateTimeKind.Utc);
             modelBuilder.Entity<BusSchedule>().HasData(
                 new BusSchedule
                 {
