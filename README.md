@@ -1,6 +1,10 @@
 # 🚌 BusTicketDemoApp - API REST para Gestión de Reservas de Autobuses
 
+<<<<<<< Updated upstream
 Una API REST completa desarrollada en **.NET 8.0** para gestionar reservas de autobuses con sistema de usuarios, proveedores, rutas y reservas.
+=======
+BackEnd en .NET 8.0 de BusTicket App - Una API REST completa para gestionar reservas de autobuses con sistema de usuarios, proveedores, rutas y reservas.
+>>>>>>> Stashed changes
 
 ## 🏗️ Arquitectura
 
@@ -159,8 +163,13 @@ POST /api/BusBooking/AddBusSchedule
 ### Configuración Local
 ```bash
 # Clonar el repositorio
+<<<<<<< Updated upstream
 git clone <repository-url>
 cd BusTicketBackEnd/BusTicketDemoApp
+=======
+git clone https://github.com/Dafesanc/BusTicketDemoApp.git
+cd BusTicketDemoApp/BusTicketDemoApp
+>>>>>>> Stashed changes
 
 # Restaurar dependencias
 dotnet restore
@@ -178,6 +187,7 @@ La API estará disponible en: `https://localhost:7287` o `http://localhost:5287`
 ### Base de Datos
 - Las migraciones se aplican automáticamente al iniciar la aplicación
 - Los datos de ejemplo se insertan mediante **Entity Framework Seeding**
+<<<<<<< Updated upstream
 - Schema SQL disponible en: `Database/BusTicketDatabase_Schema.sql`
 
 ## 🐳 Docker Deployment
@@ -190,20 +200,56 @@ FROM mcr.microsoft.com/mssql/server:2022-latest AS sql-server
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS api
 # ... configuración API .NET
+=======
+- Schema SQL disponible en: `BusTicketDemoApp/Database/BusTicketDatabase_Schema.sql`
+
+## 🐳 Docker Deployment
+
+### Prueba Local con Docker
+```bash
+# Navegar al directorio de la aplicación
+cd BusTicketDemoApp
+
+# Ejecutar script de prueba (Windows)
+.\test-docker.ps1
+
+# O construir manualmente
+docker build -t bus-ticket-api .
+docker run -p 8080:80 -p 1433:1433 bus-ticket-api
+>>>>>>> Stashed changes
 ```
 
 ### Despliegue en Fly.io
 ```bash
+<<<<<<< Updated upstream
 # Inicializar proyecto Fly.io
 fly launch
 
 # Configurar secretos
 fly secrets set ConnectionStrings__DefaultConnection="Server=localhost;Database=BusticketDb;Integrated Security=true;TrustServerCertificate=true;"
+=======
+# Instalar Fly CLI
+iwr https://fly.io/install.ps1 -useb | iex
+
+# Login a Fly.io
+fly auth login
+
+# Inicializar proyecto
+fly launch --no-deploy
+
+# Crear volumen para base de datos
+fly volumes create bus_ticket_data --region mia --size 1
+>>>>>>> Stashed changes
 
 # Desplegar
 fly deploy
 ```
 
+<<<<<<< Updated upstream
+=======
+📋 **Guía detallada**: Ver [BusTicketDemoApp/DEPLOY.md](BusTicketDemoApp/DEPLOY.md)
+
+>>>>>>> Stashed changes
 ## 📱 Uso de la API
 
 ### Ejemplo: Búsqueda de Autobuses
@@ -239,6 +285,36 @@ curl -X POST "https://your-app.fly.dev/api/BusBooking/PostBusBooking" \
 - **Docker** - Containerización
 - **Fly.io** - Hosting cloud
 
+<<<<<<< Updated upstream
+=======
+## 📁 Estructura del Proyecto
+
+```
+BusTicketDemoApp/
+├── Controllers/
+│   └── BusBookingController.cs
+├── Data/
+│   └── BusTicketDbContext.cs
+├── Database/
+│   ├── BusTicketDatabase_Schema.sql
+│   └── Migration_Commands.md
+├── Models/
+│   ├── User.cs
+│   ├── BusSchedule.cs
+│   ├── BusBooking.cs
+│   ├── BusBookingPassenger.cs
+│   ├── BusLocation.cs
+│   ├── Vendor.cs
+│   └── DTOs/
+│       └── BusBookingDTOs.cs
+├── Migrations/
+├── Dockerfile
+├── fly.toml
+├── DEPLOY.md
+└── Program.cs
+```
+
+>>>>>>> Stashed changes
 ## 📄 Licencia
 
 Este proyecto está bajo la licencia MIT.
